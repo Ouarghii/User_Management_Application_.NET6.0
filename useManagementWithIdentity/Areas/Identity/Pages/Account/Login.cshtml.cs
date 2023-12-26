@@ -67,6 +67,7 @@ namespace useManagementWithIdentity.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            
             [Required]
             [Display(Name = "Email or Username")]
             public string EmailOrUsername { get; set; }
@@ -108,8 +109,10 @@ namespace useManagementWithIdentity.Areas.Identity.Pages.Account
                 ? await _userManager.FindByEmailAsync(Input.EmailOrUsername)
                 : await _userManager.FindByNameAsync(Input.EmailOrUsername);
 
-            var username = user?.UserName;
-            if (ModelState.IsValid)
+            var username = isEmail ? user?.UserName : Input.EmailOrUsername;
+
+            // Check if user is not null before proceeding
+            if (user != null && ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
@@ -139,14 +142,15 @@ namespace useManagementWithIdentity.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt. The email or username doesn't exist.");
                     return Page();
                 }
             }
 
-
-            // If we got this far, something failed, redisplay form
+            // If user is null or ModelState is not valid, something failed, redisplay form
+            ModelState.AddModelError(string.Empty, "Invalid login attempt. The email or username doesn't exist.");
             return Page();
         }
+
     }
 }

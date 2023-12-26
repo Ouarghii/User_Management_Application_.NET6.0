@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using useManagementWithIdentity.Models;
 
 namespace useManagementWithIdentity.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -51,16 +52,23 @@ namespace useManagementWithIdentity.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
+            [Required]
+            [Display(Name = "First name")]
+            public string Firstname { get; set; }
+
+            [Required]
+            [Display(Name = "Last name")]
+            public string Lastname { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Profile Picture")]
+            public byte[] ProfilePicture { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -69,7 +77,10 @@ namespace useManagementWithIdentity.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                Firstname=user.FirstName,
+                Lastname=user.LastName,
+                PhoneNumber = phoneNumber,
+                ProfilePicture=user.ProfilePicture
             };
         }
 
@@ -100,6 +111,8 @@ namespace useManagementWithIdentity.Areas.Identity.Pages.Account.Manage
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var FirstName=user.FirstName;
+            var LastName=user.LastName;
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
@@ -108,6 +121,28 @@ namespace useManagementWithIdentity.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
+            }
+            if (Input.Firstname != FirstName)
+            {
+                user.FirstName = Input.Firstname;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.Lastname != LastName)
+            {
+                user.LastName = Input.Lastname;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Request.Form.Files.Count > 0)
+            {
+                var file=Request.Form.Files.FirstOrDefault();
+                //check File size and extension
+
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    user.ProfilePicture = dataStream.ToArray();
+                }
+            await _userManager.UpdateAsync(user);
             }
 
             await _signInManager.RefreshSignInAsync(user);

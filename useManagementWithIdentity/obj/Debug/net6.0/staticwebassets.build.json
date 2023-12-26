@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HnKek39OsHqUnsaUYbzNtVsQ+HDKLb9mtTznbJ8D/V0=",
+  "Hash": "xHwve5xnAq8WXkQ+RM3fffQyGpCWFwuaRZU2kSAjhZ8=",
   "Source": "useManagementWithIdentity",
   "BasePath": "_content/useManagementWithIdentity",
   "Mode": "Default",
@@ -1103,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Raslen\\OneDrive\\Bureau\\devops\\dev\\useManagementWithIdentity\\useManagementWithIdentity\\wwwroot\\images\\profil.jpg",
+      "SourceId": "useManagementWithIdentity",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Raslen\\OneDrive\\Bureau\\devops\\dev\\useManagementWithIdentity\\useManagementWithIdentity\\wwwroot\\",
+      "BasePath": "_content/useManagementWithIdentity",
+      "RelativePath": "images/profil.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\profil.jpg"
     },
     {
       "Identity": "C:\\Users\\Raslen\\OneDrive\\Bureau\\devops\\dev\\useManagementWithIdentity\\useManagementWithIdentity\\wwwroot\\js\\site.js",

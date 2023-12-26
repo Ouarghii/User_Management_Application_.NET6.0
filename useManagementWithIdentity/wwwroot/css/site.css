@@ -16,3 +16,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/*Custom Styles*/
+
+.profile-picture {
+    height:300px;
+    width:300px;
+    object-fit:cover;
+}
+.avatar{
+    height:40px;
+    width:40px;
+    object-fit:cover;
+}

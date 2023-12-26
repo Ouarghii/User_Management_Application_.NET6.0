@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Raslen\\OneDrive\\Bureau\\devops\\dev\\useManagementWithIdentity\\useManagementWithIdentity\\wwwroot\\images\\profil.jpg",
+      "PackagePath": "staticwebassets\\images\\profil.jpg"
+    },
+    {
       "Id": "C:\\Users\\Raslen\\OneDrive\\Bureau\\devops\\dev\\useManagementWithIdentity\\useManagementWithIdentity\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
