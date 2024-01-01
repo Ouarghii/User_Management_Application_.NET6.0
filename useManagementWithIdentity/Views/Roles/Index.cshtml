@@ -4,6 +4,8 @@
     ViewData["Title"] = "Roles";
 }
 <h1>Roles</h1>
+
+<partial name="~/Views/Roles/_Roleform.cshtml" model="new RoleFormViewModel()" />
 <table class="table table-striped mt-4">
     <thead>
         <tr class="bg-primary text-white">
@@ -21,3 +23,7 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
